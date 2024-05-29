@@ -1,4 +1,6 @@
-import { ErrorMapper } from "utils/ErrorMapper";
+import {ErrorMapper} from "utils/ErrorMapper";
+
+import {CreepWorkAssigner} from "./administrators/CreepWorkAssigner";
 
 declare global {
   /*
@@ -9,6 +11,7 @@ declare global {
     Types added in this `global` block are in an ambient, global context. This is needed because `main.ts` is a module file (uses import or export).
     Interfaces matching on name from @types/screeps will be merged. This is how you can extend the 'built-in' interfaces from @types/screeps.
   */
+
   // Memory extension samples
   interface Memory {
     uuid: number;
@@ -34,8 +37,26 @@ declare global {
 export const loop = ErrorMapper.wrapLoop(() => {
   console.log(`Current game tick is ${Game.time}`);
 
-  Game.spawns[0].spawnCreep([MOVE], "Duck" );
+  let creepsDone: number = 0;
+  let spawn: StructureSpawn = Game.spawns["Spawn1"];
+  let fakeCreep: SpawnOptions = {
+    dryRun: true
+  };
 
+  if (!spawn.spawnCreep([MOVE, WORK, CARRY], "None", fakeCreep)) {
+    if (creepsDone % 2 == 0) {
+      let c = spawn.spawnCreep([MOVE, WORK, CARRY], String("Harvester" + creepsDone), {
+        memory: {role: 'Harvester', working: false, room: "1"}
+      });
+    } else {
+
+      let c = spawn.spawnCreep([MOVE, WORK, CARRY], String("Upgrader" + creepsDone), {
+          memory: {role: 'Upgrader', working: false, room: "1"}
+        }
+      );
+    }
+  }
+  new CreepWorkAssigner().runCreeps();
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
