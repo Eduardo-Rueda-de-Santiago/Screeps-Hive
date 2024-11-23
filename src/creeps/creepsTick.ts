@@ -3,44 +3,62 @@
  */
 export class CreepsReport {
   // Amount of creeps controlled.
-  private creepsAmount: number;
+  private _creepsAmount: number;
   // Amount of harvesters controlled.
-  private harvestersAmount: number;
+  private _harvestersAmount: number;
   // Amount of builders controlled.
-  private buildersAmount: number;
+  private _buildersAmount: number;
+  // Names of the idle creeps
+  private readonly _idleCreeps: Array<string>;
 
   constructor() {
-    this.creepsAmount = 0;
-    this.harvestersAmount = 0;
-    this.buildersAmount = 0;
+    this._creepsAmount = 0;
+    this._harvestersAmount = 0;
+    this._buildersAmount = 0;
+    this._idleCreeps = new Array<string>();
   }
 
   /**
    * Count a creep.
    */
   public countCreep(): void {
-    this.creepsAmount++;
+    this._creepsAmount++;
   }
 
   /**
    * Count a harvester.
    */
   public countHarvester(): void {
-    this.harvestersAmount++;
+    this._harvestersAmount++;
   }
 
   /**
    * Count a builder.
    */
   public countBuilder(): void {
-    this.buildersAmount++;
+    this._buildersAmount++;
+  }
+
+  /**
+   * Adds the name of the idle creep to the array.
+   * @param idleCreepName Name of the idle creep.
+   */
+  public addIdleCreep(idleCreepName: string): void {
+    this._idleCreeps.push(idleCreepName);
+  }
+
+  /**
+   * Returns an array with the name of the idle creeps
+   */
+  get idleCreeps(): Array<string> {
+    return this._idleCreeps;
   }
 
   public toString(): string {
     return `Creep report: {
-    creepsInGame: ${this.creepsAmount},
-    harvestersInGame: ${this.harvestersAmount},
-    buildersInGame: ${this.buildersAmount},
+    creepsInGame: ${this._creepsAmount},
+    harvestersInGame: ${this._harvestersAmount},
+    buildersInGame: ${this._buildersAmount},
     }`;
   }
 }
@@ -59,6 +77,16 @@ function handleCreep(creepName: string, creepsReport: CreepsReport) {
 
   // Count the creep for report purposes
   creepsReport.countCreep();
+
+  const creep: Creep = Game.creeps[creepName];
+
+  switch (creep.memory.role) {
+    case "Harvester":
+      break;
+    default:
+      console.log("Creep has no role");
+      creepsReport.addIdleCreep(creepName);
+  }
 }
 
 /**
