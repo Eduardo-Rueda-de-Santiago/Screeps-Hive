@@ -1,4 +1,6 @@
 import { ErrorMapper } from "utils/ErrorMapper";
+import { creepsTick } from "creeps/creepsTick";
+import { structuresTick } from "./structures/structuresTick";
 
 declare global {
   /*
@@ -9,6 +11,7 @@ declare global {
     Types added in this `global` block are in an ambient, global context. This is needed because `main.ts` is a module file (uses import or export).
     Interfaces matching on name from @types/screeps will be merged. This is how you can extend the 'built-in' interfaces from @types/screeps.
   */
+
   // Memory extension samples
   interface Memory {
     uuid: number;
@@ -32,12 +35,10 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  console.log(`Current game tick is ${Game.time}`);
+  const tick: number = Game.time;
+  
+  console.log(`Current game tick is ${tick}`);
 
-  // Automatically delete memory of missing creeps
-  for (const name in Memory.creeps) {
-    if (!(name in Game.creeps)) {
-      delete Memory.creeps[name];
-    }
-  }
+  structuresTick(tick);
+  creepsTick(tick);
 });
