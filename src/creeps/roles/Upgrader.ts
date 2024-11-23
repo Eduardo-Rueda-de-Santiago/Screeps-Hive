@@ -5,5 +5,8 @@ import { CreepRole } from "./CreepRole";
  */
 export const Upgrader: CreepRole = {
   name: "Upgrader",
+
+  body: [MOVE, WORK, CARRY],
+
   act: (creep: Creep) => {}
 };

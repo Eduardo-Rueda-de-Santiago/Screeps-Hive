@@ -6,5 +6,6 @@ import { CreepRole } from "./CreepRole";
  */
 export const BasicBuilder: CreepRole = {
   name: "BasicBuilder",
+  body: [MOVE, WORK, CARRY],
   act: (creep: Creep) => {}
 };
