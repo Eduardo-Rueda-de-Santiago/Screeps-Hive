@@ -1,6 +1,4 @@
-import { BasicHarvester } from "./roles/Harvester";
-import { BasicBuilder } from "./roles/Builder";
-import { BasicUpgrader } from "./roles/Upgrader";
+import { CreepRole, resolveRole } from "./roles/CreepRole";
 
 /**
  * Data resulting from doing the creeps logic.
@@ -82,24 +80,14 @@ function handleCreep(creepName: string, creepsReport: CreepsReport) {
   // Count the creep for report purposes
   creepsReport.countCreep();
 
+  // Get the creep object.
   const creep: Creep = Game.creeps[creepName];
 
-  switch (creep.memory.role) {
-    case BasicHarvester.name:
-      BasicHarvester.act(creep);
-      break;
+  // Get the role of the creep.
+  const creepRole: CreepRole | null = resolveRole(creep.memory.role);
 
-    case BasicBuilder.name:
-      BasicBuilder.act(creep);
-      break;
-
-    case BasicUpgrader.name:
-      BasicUpgrader.act(creep);
-      break;
-
-    default:
-      creepsReport.addIdleCreep(creepName);
-  }
+  // Act or flag as idle.
+  creepRole ? creepRole.act(creep) : creepsReport.addIdleCreep(creepName);
 }
 
 /**

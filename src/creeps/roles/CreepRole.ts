@@ -1,3 +1,7 @@
+import { BasicHarvester } from "./Harvester";
+import { BasicBuilder } from "./Builder";
+import { BasicUpgrader } from "./Upgrader";
+
 /**
  * Creep role interface
  */
@@ -17,4 +21,20 @@ export interface CreepRole {
    * @param creep The creep to act
    */
   readonly act: (creep: Creep) => void;
+}
+
+export function resolveRole(name: string): CreepRole | null {
+  switch (name) {
+    case BasicHarvester.name:
+      return BasicHarvester;
+
+    case BasicBuilder.name:
+      return BasicBuilder;
+
+    case BasicUpgrader.name:
+      return BasicUpgrader;
+
+    default:
+      return null;
+  }
 }
