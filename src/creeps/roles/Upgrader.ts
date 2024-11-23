@@ -1,5 +1,5 @@
 import { CreepRole } from "./CreepRole";
-import { CreepsReport } from "../creepsTick";
+import { CreepsReport } from "../CreepsReport";
 
 /**
  * Upgrades the controller

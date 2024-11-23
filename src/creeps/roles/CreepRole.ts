@@ -1,7 +1,7 @@
 import { BasicHarvester } from "./Harvester";
 import { BasicBuilder } from "./Builder";
 import { BasicUpgrader } from "./Upgrader";
-import { CreepsReport } from "../creepsTick";
+import { CreepsReport } from "../CreepsReport";
 
 /**
  * Creep role interface

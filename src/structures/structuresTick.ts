@@ -1,6 +1,5 @@
 import { CreepRole, resolveRole } from "../creeps/roles/CreepRole";
-
-export class StructuresReport {}
+import { StructuresReport } from "./StructuresReport";
 
 function handleSpawn(spawnName: string) {
   const spawn = Game.spawns[spawnName];
