@@ -1,4 +1,5 @@
 import { CreepRole } from "./CreepRole";
+import { CreepsReport } from "../creepsTick";
 
 /**
  * Upgrades the controller
@@ -8,5 +9,5 @@ export const BasicUpgrader: CreepRole = {
 
   body: [MOVE, WORK, CARRY],
 
-  act: (creep: Creep) => {}
+  act: (creep: Creep, creepReport: CreepsReport) => {}
 };

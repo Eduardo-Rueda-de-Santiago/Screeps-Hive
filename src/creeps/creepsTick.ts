@@ -87,7 +87,7 @@ function handleCreep(creepName: string, creepsReport: CreepsReport) {
   const creepRole: CreepRole | null = resolveRole(creep.memory.role);
 
   // Act or flag as idle.
-  creepRole ? creepRole.act(creep) : creepsReport.addIdleCreep(creepName);
+  creepRole ? creepRole.act(creep, creepsReport) : creepsReport.addIdleCreep(creepName);
 }
 
 /**

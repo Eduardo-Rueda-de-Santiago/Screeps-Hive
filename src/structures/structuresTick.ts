@@ -1,8 +1,30 @@
+import { CreepRole, resolveRole } from "../creeps/roles/CreepRole";
+
 export class StructuresReport {}
 
 function handleSpawn(spawnName: string) {
   const spawn = Game.spawns[spawnName];
+
   if (!spawn.spawning && spawn.memory?.spawnList) {
+    const spawnList = spawn.memory?.spawnList;
+
+    const creepToSpawn = spawnList?.pop();
+
+    if (creepToSpawn) {
+      const creepRole: CreepRole | null = resolveRole(creepToSpawn);
+
+      if (creepRole) {
+        spawn.spawnCreep(creepRole.body, creepRole.name + Game.time, {
+          memory: {
+            role: creepRole.name,
+            room: spawn.room.name,
+            working: false
+          }
+        });
+
+        spawn.memory.spawnList = spawnList;
+      }
+    }
   }
 }
 

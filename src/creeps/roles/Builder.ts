@@ -1,4 +1,5 @@
 import { CreepRole } from "./CreepRole";
+import { CreepsReport } from "../creepsTick";
 
 /**
  * Basic builder role.
@@ -7,5 +8,5 @@ import { CreepRole } from "./CreepRole";
 export const BasicBuilder: CreepRole = {
   name: "BasicBuilder",
   body: [MOVE, WORK, CARRY],
-  act: (creep: Creep) => {}
+  act: (creep: Creep, creepReport: CreepsReport) => {}
 };

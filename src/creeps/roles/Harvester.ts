@@ -1,4 +1,5 @@
 import { CreepRole } from "./CreepRole";
+import { CreepsReport } from "../creepsTick";
 
 /**
  * Basic harvester role.
@@ -9,7 +10,7 @@ export const BasicHarvester: CreepRole = {
 
   body: [MOVE, WORK, CARRY],
 
-  act: (creep: Creep) => {
+  act: (creep: Creep, creepReport: CreepsReport) => {
     if (creep.store.getFreeCapacity() > 0) {
       let sources = creep.room.find(FIND_SOURCES);
       if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
@@ -20,5 +21,6 @@ export const BasicHarvester: CreepRole = {
         creep.moveTo(Game.spawns["Spawn1"]);
       }
     }
+    creepReport.countHarvester();
   }
 };

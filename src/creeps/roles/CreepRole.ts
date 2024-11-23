@@ -1,6 +1,7 @@
 import { BasicHarvester } from "./Harvester";
 import { BasicBuilder } from "./Builder";
 import { BasicUpgrader } from "./Upgrader";
+import { CreepsReport } from "../creepsTick";
 
 /**
  * Creep role interface
@@ -20,7 +21,7 @@ export interface CreepRole {
    * Actions creep with this role has to take.
    * @param creep The creep to act
    */
-  readonly act: (creep: Creep) => void;
+  readonly act: (creep: Creep, creepReport: CreepsReport) => void;
 }
 
 export function resolveRole(name: string): CreepRole | null {
