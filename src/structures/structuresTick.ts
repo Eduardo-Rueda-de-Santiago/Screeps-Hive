@@ -2,9 +2,7 @@ export class StructuresReport {}
 
 function handleSpawn(spawnName: string) {
   const spawn = Game.spawns[spawnName];
-  if (!spawn.spawning){
-
-    if
+  if (!spawn.spawning && spawn.memory?.spawnList) {
   }
 }
 
