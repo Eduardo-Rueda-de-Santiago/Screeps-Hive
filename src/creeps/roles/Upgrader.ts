@@ -3,8 +3,8 @@ import { CreepRole } from "./CreepRole";
 /**
  * Upgrades the controller
  */
-export const Upgrader: CreepRole = {
-  name: "Upgrader",
+export const BasicUpgrader: CreepRole = {
+  name: "BasicUpgrader",
 
   body: [MOVE, WORK, CARRY],
 

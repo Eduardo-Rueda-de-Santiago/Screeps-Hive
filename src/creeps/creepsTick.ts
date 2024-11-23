@@ -1,6 +1,6 @@
 import { BasicHarvester } from "./roles/Harvester";
 import { BasicBuilder } from "./roles/Builder";
-import { Upgrader } from "./roles/Upgrader";
+import { BasicUpgrader } from "./roles/Upgrader";
 
 /**
  * Data resulting from doing the creeps logic.
@@ -93,8 +93,8 @@ function handleCreep(creepName: string, creepsReport: CreepsReport) {
       BasicBuilder.act(creep);
       break;
 
-    case Upgrader.name:
-      Upgrader.act(creep);
+    case BasicUpgrader.name:
+      BasicUpgrader.act(creep);
       break;
 
     default:
